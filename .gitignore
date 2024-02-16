@@ -1,0 +1,61 @@
+# Arquivos ignorados pelo controle de versão GIT. 
+.clangd
+compile_commands.json
+.cache/*
+
+### Arquivos do Cube que não queremos compartilhar.
+*.launch
+
+### Arquivos da pasta debug e da pasta release
+Debug/
+Release/
+.settings/*
+.vscode/
+build/
+
+### C ###
+# Prerequisites
+*.d
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.bin
+*.elf
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb

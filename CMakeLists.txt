@@ -1,6 +1,21 @@
 cmake_minimum_required(VERSION 3.24)
 
-project(esp_flasher_stm LANGUAGES C CXX ASM)
+find_program(CCACHE_FOUND ccache)
+if(CCACHE_FOUND)
+  message(STATUS "Found CCACHE!")
+  set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
+endif()
+
+set(CMAKE_C_STANDARD 17)
+set(CMAKE_C_STANDARD_REQUIRED TRUE)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
+
+set(PROJECT_NAME vibrate_firmware_vwvp)
+
+project(${PROJECT_NAME} LANGUAGES C CXX ASM)
 
 # To enable colored terminal
 option(FORCE_COLORED_OUTPUT
@@ -22,3 +37,5 @@ if(${GARBAGE_COLLECT_SECTIONS})
 endif()
 
 add_subdirectory(Espressif)
+
+add_subdirectory(Firmware)
