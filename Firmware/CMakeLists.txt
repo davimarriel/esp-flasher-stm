@@ -24,14 +24,14 @@ target_sources(
 target_include_directories(
   st
   PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/Core/Inc
-         ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32G0xx_HAL_Driver/Inc
-         ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/CMSIS/Device/ST/STM32G0xx/Include
+         ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Inc
+         ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/CMSIS/Device/ST/STM32F1xx/Include
          ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/CMSIS/Include)
 
 target_compile_options(st PRIVATE -Wno-unused-parameter -Wno-shadow
                                   -ffunction-sections -fdata-sections)
 
-target_compile_definitions(st PUBLIC STM32G030xx USE_HAL_DRIVER)
+target_compile_definitions(st PUBLIC STM32F103xB USE_HAL_DRIVER)
 
 add_executable(
   ${EXE_NAME}
@@ -54,7 +54,7 @@ target_link_options(
   ${EXE_NAME} PRIVATE -T${CMAKE_CURRENT_SOURCE_DIR}/STM32F103RBTX_FLASH.ld
   -Wl,--gc-sections -specs=nano.specs -Wl,--no-warn-rwx-segment)
 
-target_link_libraries(${EXE_NAME} PRIVATE st)
+target_link_libraries(${EXE_NAME} PRIVATE flasher st)
 
 add_custom_target(
   flash

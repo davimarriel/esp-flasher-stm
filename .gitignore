@@ -59,3 +59,25 @@ build/
 *.su
 *.idb
 *.pdb
+
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+
+
+# Biblioteca DSP
+!libarm*.a
+
+# Squareline / LVGL
+!ui_font_*.bin
+autosave/
+backup/
+boards/
+cache/
+!Firmware/BSP/firmware/src/config/default/system/cache/
+!Binaries/*
