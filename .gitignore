@@ -11,7 +11,7 @@ Debug/
 Release/
 .settings/*
 .vscode/
-build/
+build
 
 ### C ###
 # Prerequisites
