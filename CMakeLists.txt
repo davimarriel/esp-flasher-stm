@@ -13,7 +13,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 
-set(PROJECT_NAME vibrate_firmware_vwvp)
+set(PROJECT_NAME esp_flasher_stm)
 
 project(${PROJECT_NAME} LANGUAGES C CXX ASM)
 
