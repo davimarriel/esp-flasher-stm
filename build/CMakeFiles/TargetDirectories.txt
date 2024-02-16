@@ -1,0 +1,5 @@
+C:/Users/davim/OneDrive/Documentos/42WE/esp-flasher-stm/build/CMakeFiles/edit_cache.dir
+C:/Users/davim/OneDrive/Documentos/42WE/esp-flasher-stm/build/CMakeFiles/rebuild_cache.dir
+C:/Users/davim/OneDrive/Documentos/42WE/esp-flasher-stm/build/Espressif/CMakeFiles/flasher.dir
+C:/Users/davim/OneDrive/Documentos/42WE/esp-flasher-stm/build/Espressif/CMakeFiles/edit_cache.dir
+C:/Users/davim/OneDrive/Documentos/42WE/esp-flasher-stm/build/Espressif/CMakeFiles/rebuild_cache.dir
