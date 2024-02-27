@@ -31,7 +31,7 @@ target_include_directories(
 target_compile_options(st PRIVATE -Wno-unused-parameter -Wno-shadow
                                   -ffunction-sections -fdata-sections)
 
-target_compile_definitions(st PUBLIC STM32F103xB USE_HAL_DRIVER)
+target_compile_definitions(st PUBLIC STM32F103xB USE_HAL_DRIVER STM32)
 
 add_executable(
   ${EXE_NAME}
@@ -43,7 +43,13 @@ add_executable(
   ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/syscalls.c
   ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/sysmem.c
   ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/system_stm32f1xx.c
-  ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/usart.c)
+  ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/usart.c
+  
+  ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/Services/EspFlasherService.c
+  
+  
+  
+  )
 
 target_include_directories(${EXE_NAME} PRIVATE ${PROJECT_BINARY_DIR})
 
@@ -54,7 +60,7 @@ target_link_options(
   ${EXE_NAME} PRIVATE -T${CMAKE_CURRENT_SOURCE_DIR}/STM32F103RBTX_FLASH.ld
   -Wl,--gc-sections -specs=nano.specs -Wl,--no-warn-rwx-segment)
 
-target_link_libraries(${EXE_NAME} PRIVATE Espressif st)
+target_link_libraries(${EXE_NAME} PRIVATE Espressif modules st)
 
 add_custom_target(
   flash
