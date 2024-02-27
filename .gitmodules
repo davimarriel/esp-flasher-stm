@@ -1,3 +1,6 @@
 [submodule "Espressif"]
 	path = Espressif
 	url = git@github.com:espressif/esp-serial-flasher.git
+[submodule "Modules"]
+	path = Modules
+	url = git@ssh.dev.azure.com:v3/42WE/42WE%20-%20Engineering/42WE.Firmware.Modules

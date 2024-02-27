@@ -54,7 +54,7 @@ target_link_options(
   ${EXE_NAME} PRIVATE -T${CMAKE_CURRENT_SOURCE_DIR}/STM32F103RBTX_FLASH.ld
   -Wl,--gc-sections -specs=nano.specs -Wl,--no-warn-rwx-segment)
 
-target_link_libraries(${EXE_NAME} PRIVATE flasher st)
+target_link_libraries(${EXE_NAME} PRIVATE Espressif st)
 
 add_custom_target(
   flash
