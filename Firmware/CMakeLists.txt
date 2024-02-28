@@ -5,55 +5,62 @@ add_library(st STATIC)
 target_sources(
   st
   PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_cortex.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_eth.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_exti.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_flash.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_flash_ex.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_gpio.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_i2c.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_i2c_ex.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_pcd.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_pcd_ex.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_pwr.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_pwr_ex.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_rcc.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_rcc_ex.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_tim.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_tim_ex.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_uart.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_uart_ex.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_ll_usb.c
 )
 
 target_include_directories(
   st
   PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/Core/Inc
-         ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F1xx_HAL_Driver/Inc
-         ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/CMSIS/Device/ST/STM32F1xx/Include
+         ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F7xx_HAL_Driver/Inc
+         ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/CMSIS/Device/ST/STM32F7xx/Include
          ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/CMSIS/Include)
 
 target_compile_options(st PRIVATE -Wno-unused-parameter -Wno-shadow
                                   -ffunction-sections -fdata-sections)
 
-target_compile_definitions(st PUBLIC STM32F103xB USE_HAL_DRIVER STM32)
+target_compile_definitions(st PUBLIC STM32F767xx USE_HAL_DRIVER STM32)
 
 add_executable(
   ${EXE_NAME}
-  ${CMAKE_CURRENT_SOURCE_DIR}/Core/Startup/startup_stm32f103rbtx.s
+  ${CMAKE_CURRENT_SOURCE_DIR}/Core/Startup/startup_stm32f767zitx.s
+
+  ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/eth.c
   ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/gpio.c
   ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/main.c
-  ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/stm32f1xx_hal_msp.c
-  ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/stm32f1xx_it.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/stm32f7xx_hal_msp.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/stm32f7xx_it.c
   ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/syscalls.c
   ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/sysmem.c
-  ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/system_stm32f1xx.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/system_stm32f7xx.c
   ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/usart.c
-  
+  ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/usb_otg.c
+
   # ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/Binaries/application_bin.c
   # ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/Binaries/bootloader_bin.c
   # ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/Binaries/partition_bin.c
 
-  ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/Services/EspFlasherService.c
-  
-  
-  
-  )
+  ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/Services/EspFlasherService.c)
 
 target_include_directories(${EXE_NAME} PRIVATE ${PROJECT_BINARY_DIR})
 
@@ -61,7 +68,7 @@ target_compile_options(${EXE_NAME} PRIVATE -Wall -Wextra -Wshadow
                                            -ffunction-sections -fdata-sections)
 
 target_link_options(
-  ${EXE_NAME} PRIVATE -T${CMAKE_CURRENT_SOURCE_DIR}/STM32F103RBTX_FLASH.ld
+  ${EXE_NAME} PRIVATE -T${CMAKE_CURRENT_SOURCE_DIR}/STM32F767ZITX_FLASH.ld
   -Wl,--gc-sections -specs=nano.specs -Wl,--no-warn-rwx-segment)
 
 target_link_libraries(${EXE_NAME} PRIVATE Espressif modules st)

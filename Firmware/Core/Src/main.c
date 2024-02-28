@@ -93,13 +93,17 @@ int main(void)
   MX_USART3_UART_Init();
   MX_USB_OTG_FS_PCD_Init();
   /* USER CODE BEGIN 2 */
-
+  static uint32_t timer = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    if(HAL_GetTick() >= timer + 1000){
+      HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+      timer = HAL_GetTick();
+    }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
