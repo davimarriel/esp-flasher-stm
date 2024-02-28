@@ -23,6 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "Services/EspFlasherService.h"
 
 /* USER CODE END Includes */
 
@@ -89,12 +90,19 @@ int main(void)
   MX_USART2_UART_Init();
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
+  static uint32_t timer;
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
     while (1) {
+      if(HAL_GetTick() >= timer + 1000 ){
+        ESPFlasher_SRV_ConnectTarget();
+        ESPFlasher_SRV_ResetTarget();
+        HAL_GPIO_TogglePin(LD2_GPIO_Port,LD2_Pin);
+        timer = HAL_GetTick();
+      }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

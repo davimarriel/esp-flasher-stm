@@ -39,29 +39,20 @@ endif()
 add_subdirectory(Modules)
 
 # add_subdirectory(Espressif)
-add_library(Espressif STATIC 
-    Espressif/src/esp_targets.c
-    Espressif/src/md5_hash.c
-    Espressif/src/esp_loader.c
-    Espressif/src/protocol_common.c
-    
-    Espressif/src/protocol_uart.c
-    Espressif/src/slip.c
-)
+add_library(
+  Espressif STATIC
+  Espressif/src/esp_targets.c Espressif/src/md5_hash.c
+  Espressif/src/esp_loader.c Espressif/src/protocol_common.c
+  Espressif/src/protocol_uart.c Espressif/src/slip.c)
 
+target_include_directories(
+  Espressif
+  PUBLIC Espressif/include Espressif/port
+  PRIVATE Espressif/private_include)
 
-target_include_directories(Espressif PUBLIC
-    Espressif/include
-    Espressif/port
-    PRIVATE
-    Espressif/private_include
-)
-target_compile_definitions(Espressif PRIVATE
-	MD5_ENABLED=1
-	SERIAL_FLASHER_INTERFACE_UART
-	SERIAL_FLASHER_DEBUG_TRACE
-	SERIAL_FLASHER_WRITE_BLOCK_RETRIES=3
-)
-
+target_compile_definitions(
+  Espressif
+  PUBLIC MD5_ENABLED=1 SERIAL_FLASHER_INTERFACE_UART=1
+          SERIAL_FLASHER_DEBUG_TRACE=1 SERIAL_FLASHER_WRITE_BLOCK_RETRIES=3)
 
 add_subdirectory(Firmware)
