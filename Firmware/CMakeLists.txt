@@ -45,6 +45,10 @@ add_executable(
   ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/system_stm32f1xx.c
   ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/usart.c
   
+  # ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/Binaries/application_bin.c
+  # ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/Binaries/bootloader_bin.c
+  # ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/Binaries/partition_bin.c
+
   ${CMAKE_CURRENT_SOURCE_DIR}/Core/Src/Services/EspFlasherService.c
   
   

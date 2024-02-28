@@ -23,6 +23,9 @@ typedef struct LoaderConfig_T {
 } LoaderConfig_T;
 
 static esp_loader_error_t ConnectToTarget(void);
+static esp_loader_error_t FlashBinaryChunk(const uint8_t* bin,
+                                           size_t size,
+                                           size_t address);
 
 static LoaderConfig_T currentConfiguration = {
     .uart          = &huart3,
@@ -31,6 +34,10 @@ static LoaderConfig_T currentConfiguration = {
     .gpioPinBoot   = ESP_BOOT_Pin,
     .gpioPinReset  = ESP_RESET_Pin,
 };
+
+static uint32_t currentBinarySize;
+static uint32_t currentChunkSize;
+static uint32_t currentRegionAddress;
 
 static uint32_t startTimer;
 static bool isInitialized;
@@ -41,6 +48,49 @@ bool ESPFlasher_SRV_ConnectTarget() {
 
 void ESPFlasher_SRV_ResetTarget() {
     loader_port_reset_target();
+}
+
+ReturnStatus_E ESPFlasher_SRV_SetupWrite(uint32_t regionAddress,
+                                         uint32_t totalBinarySize,
+                                         uint32_t chunkSize) {
+    esp_loader_error_t err;
+    printf("Erasing flash (this may take a while)...\n");
+    err = esp_loader_flash_start(regionAddress, totalBinarySize, chunkSize);
+    if (err != ESP_LOADER_SUCCESS) {
+        printf("Erasing flash failed with error %d.\n", err);
+        return RETURN_STATUS_GENERAL_ERROR;
+    }
+
+    currentRegionAddress = regionAddress;
+    currentBinarySize    = totalBinarySize;
+    currentChunkSize     = chunkSize;
+
+    printf("Start programming\n");
+    return RETURN_STATUS_OK;
+}
+
+ReturnStatus_E ESPFlasher_SRV_Write(const uint8_t* data, uint32_t length) {
+    static uint32_t currentLength = 0;
+    ReturnStatus_E returnIfSuccess;
+    if (length < currentChunkSize) {
+        currentLength   = length;
+        returnIfSuccess = RETURN_STATUS_OK;
+    } else if (length == currentChunkSize) {
+        currentLength   = currentChunkSize;
+        returnIfSuccess = RETURN_STATUS_IS_BUSY;
+    } else {
+        // NOTE(DAVI): DON'T WRITE CHUNKS BIGGER THAN SPECIFIED
+        return;
+    }
+
+    esp_loader_error_t err;
+    err = esp_loader_flash_write(data, currentLength);
+    if (err != ESP_LOADER_SUCCESS) {
+        printf("\nPacket could not be written! Error %d.\n", err);
+        return RETURN_STATUS_GENERAL_ERROR;
+    }
+
+    return returnIfSuccess;
 }
 
 static esp_loader_error_t ConnectToTarget(void) {

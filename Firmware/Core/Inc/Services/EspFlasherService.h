@@ -13,11 +13,17 @@
 
 #include "ReturnStatus.h"
 #include "stdbool.h"
+#include "stdint.h"
 
-void Init();
+typedef enum ESP_BINARY_TYPE_E {
+    ESP_BINARY_TYPE_BOOTLOADER = 0,
+    ESP_BINARY_TYPE_APPLICATION,
+    ESP_BINARY_TYPE_PARTITION_TABLE,
+} ESP_BINARY_TYPE_E;
 
 bool ESPFlasher_SRV_ConnectTarget();
-
 void ESPFlasher_SRV_ResetTarget();
-
-void Handler();
+ReturnStatus_E ESPFlasher_SRV_SetupWrite(uint32_t regionAddress,
+                                         uint32_t totalBinarySize,
+                                         uint32_t chunkSize);
+ReturnStatus_E ESPFlasher_SRV_Write(const uint8_t* data, uint32_t length);
